@@ -27,8 +27,16 @@ public class OrderService {
         //получаем юзера из другого сервиса
         UserResponseDto userById = userClient.getUserById(order.getUserId());
         order.setUserId(userById.getId());// сетим айди из юзера его поле в заказ
+        order.setNameUser(userById.getUsername());
         return orderMapper.toDto(orderRepository.save(order));
-        }
+    }
+
+
+    @Transactional
+    public void deleteAllOrdersByUserId(Long userId) {
+        orderRepository.deleteAllOrdersByUserId(userId);
+    }
+
 
     public List<OrderDto> getAllOrders() {
         return orderRepository.findAll()
@@ -36,11 +44,5 @@ public class OrderService {
                 .map(orderMapper::toDto)
                 .toList();
     }
-
-@Transactional
-    public void deleteAllOrdersByUserId(Long userId) {
-        orderRepository.deleteAllOrdersByUserId(userId);
-    }
-
-    }
+}
 
