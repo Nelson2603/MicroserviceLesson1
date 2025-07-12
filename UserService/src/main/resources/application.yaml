@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: UserService
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  feign:
+    client:
+      config:
+        default:
+          http-method-retry-enabled: false
+
+  datasource:
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://localhost:5432/user_db33
+    driver-class-name: org.postgresql.Driver
+
+server:
+  port: 4444
